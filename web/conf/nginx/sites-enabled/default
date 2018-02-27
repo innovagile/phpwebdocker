@@ -1,5 +1,5 @@
 upstream php7 {
-     server unix:/run/php/php7.1-fpm.sock;
+     server unix:/run/php/php7.2-fpm.sock;
 }
 
 uninitialized_variable_warn off;
