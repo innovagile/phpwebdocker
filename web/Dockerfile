@@ -7,7 +7,7 @@ RUN apt-get -y update && \
     DEBIAN_FRONTEND=noninteractive LC_ALL=en_US.UTF-8 add-apt-repository -y ppa:ondrej/php && \
     apt-get -y update && \
     apt-get -y upgrade && \
-    apt-get install -y --force-yes php7.1-fpm php7.1-curl php7.1-cli php7.1-common php7.1-json php7.1-opcache php7.1-mysql php7.1-intl php-apcu openssl nginx && \
+    apt-get install -y --force-yes php7.1-fpm php7.1-curl php7.1-cli php7.1-common php7.1-json php7.1-opcache php7.1-mysql php7.1-intl php7.1-mbstring php7.1-dom php-apcu openssl nginx && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
