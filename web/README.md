@@ -1,2 +1,2 @@
-# php7fpm-nginx-docker
+# BeniPasss docker
 PHP7-fpm + nginx docker container
