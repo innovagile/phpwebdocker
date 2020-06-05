@@ -11,7 +11,7 @@ RUN apt-get -y update && \
 RUN npm i -g npm && \
     npm install -g gulp
 RUN echo "xdebug.remote_enable=1" >> /etc/php/7.4/mods-available/xdebug.ini && \
-    echo 'xdebug.remote_connect_back=1' >> /etc/php/7.4/mods-available/xdebug.ini && \
+    echo 'xdebug.remote_connect_back=0' >> /etc/php/7.4/mods-available/xdebug.ini && \
     echo 'xdebug.remote_port=9000' >> /etc/php/7.4/mods-available/xdebug.ini && \
     echo 'xdebug.remote_host=host.docker.internal' >> /etc/php/7.4/mods-available/xdebug.ini && \
-    echo "xdebug.remote_autostart=1" >> /etc/php/7.4/mods-available/xdebug.ini
+    echo "xdebug.remote_autostart=0" >> /etc/php/7.4/mods-available/xdebug.ini
