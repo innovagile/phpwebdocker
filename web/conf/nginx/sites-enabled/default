@@ -9,6 +9,9 @@ server {
     listen [::]:80 default_server;
     server_name _;
 
+    error_log /var/log/nginx/web-error.log;
+    access_log /var/log/nginx/web-access.log;
+
     keepalive_requests 100;
     keepalive_timeout 10s;
 
