@@ -1,5 +1,6 @@
 FROM phusion/baseimage:0.11
-MAINTAINER innovAgile <hello@innovagile.com>
+LABEL author="innovAgile <hello@innovagile.com>"
+LABEL version="7.4"
 
 RUN apt-get -y update && \
     apt-get install -y language-pack-en-base && \

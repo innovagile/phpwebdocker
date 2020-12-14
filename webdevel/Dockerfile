@@ -1,5 +1,6 @@
 FROM registry.innovagile.com:5000/innovagile/web
-MAINTAINER innovAgile <hello@innovagile.com>
+LABEL author="innovAgile <hello@innovagile.com>"
+LABEL version="7.4"
 
 RUN apt-get -y update && \
     curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
