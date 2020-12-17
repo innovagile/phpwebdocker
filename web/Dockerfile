@@ -19,9 +19,9 @@ RUN apt-get -y update && \
         php${PHP_VERSION}-intl \
         php${PHP_VERSION}-mbstring \
         php${PHP_VERSION}-xml \
-        php-apcu \
-        php-zip \
-        php-gd \
+        php${PHP_VERSION}-apcu \
+        php${PHP_VERSION}-zip \
+        php${PHP_VERSION}-gd \
         openssl \
         nginx \
     && \
