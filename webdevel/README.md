@@ -1,4 +1,4 @@
-# BeniPasss dev docker
-PHP7-fpm + nginx + nodejs docker container
+# innovAgile dev docker
+PHP-fpm + nginx + nodejs docker container
 
-docker-compose up -d
+gulp + webpack

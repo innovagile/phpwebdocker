@@ -20,11 +20,13 @@ If you're seeing this message in your browser it means that
 the PHP docker container is not running properly
 */
 
-echo 'This is a php-fpm ' . PHP_VERSION . ' + nginx docker container.';
+echo 'This is a php-fpm ' . PHP_VERSION . ' + xdebug + npm + webpack + gulp + nginx docker container.';
 ?>
 </h3>
 <h4>
     <a href="https://www.innovagile.com">innovAgile - Software Development</a>
 </h4>
+
+<?php phpinfo(); ?>
 </body>
 </html>

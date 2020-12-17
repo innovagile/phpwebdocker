@@ -1,6 +1,7 @@
-FROM phusion/baseimage:0.11
+FROM phusion/baseimage:18.04-1.0.0
+ENV PHP_VERSION=8.0
 LABEL author="innovAgile <hello@innovagile.com>"
-LABEL version="7.4"
+LABEL version=${PHP_VERSION}
 
 RUN apt-get -y update && \
     apt-get install -y language-pack-en-base && \
@@ -8,12 +9,29 @@ RUN apt-get -y update && \
     DEBIAN_FRONTEND=noninteractive LC_ALL=en_US.UTF-8 add-apt-repository -y ppa:ondrej/php && \
     apt-get -y update && \
     apt-get -y upgrade && \
-    apt-get install -y --force-yes php7.4-fpm php7.4-curl php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-mysql php7.4-intl php7.4-mbstring php7.4-xml php-apcu php-zip php-gd openssl nginx && \
+    apt-get install -y --force-yes \
+        php${PHP_VERSION}-fpm \
+        php${PHP_VERSION}-curl \
+        php${PHP_VERSION}-cli \
+        php${PHP_VERSION}-common \
+        php${PHP_VERSION}-opcache \
+        php${PHP_VERSION}-mysql \
+        php${PHP_VERSION}-intl \
+        php${PHP_VERSION}-mbstring \
+        php${PHP_VERSION}-xml \
+        php-apcu \
+        php-zip \
+        php-gd \
+        openssl \
+        nginx \
+    && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer && \
-    php -r "if (hash_file('sha384', '/tmp/composer-setup.php') === 'e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a') { echo    'Installer verified'; } else { echo 'Installer corrupt'; unlink('/tmp/composer-setup.php'); } echo PHP_EOL;" && \
+RUN mkdir -p /etc/php/current/fpm/pool.d/ && \
+    cat /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf | sed 's/^listen = \/.\+$/listen = \/run\/php\/php-fpm.sock/' > /etc/php/current/fpm/pool.d/www.conf && \
+    curl -o /tmp/composer-setup.php https://getcomposer.org/installer && \
+    php -r "if (hash_file('sha384', '/tmp/composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('/tmp/composer-setup.php'); } echo PHP_EOL;" && \
     php /tmp/composer-setup.php --install-dir=/bin --filename=composer && \
     rm /tmp/composer-setup.php
 
@@ -35,7 +53,7 @@ RUN chmod +x /etc/service/*/run
 RUN rm -fr /etc/nginx
 ADD conf/nginx /etc/nginx/
 
-COPY conf/php-fpm/php-fpm.conf /etc/php/7.4/fpm/php-fpm.conf
+COPY conf/php-fpm/php-fpm.conf /etc/php/${PHP_VERSION}/fpm/php-fpm.conf
 
 EXPOSE 80
 

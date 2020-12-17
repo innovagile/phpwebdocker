@@ -1,5 +1,5 @@
-upstream php7 {
-     server unix:/run/php/php7.4-fpm.sock;
+upstream php_upstream {
+     server unix:/run/php/php-fpm.sock;
 }
 
 uninitialized_variable_warn off;
@@ -28,7 +28,7 @@ server {
         include fastcgi_params;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_pass php7;
+        fastcgi_pass php_upstream;
     }
 
     location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
