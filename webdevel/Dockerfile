@@ -1,4 +1,4 @@
-FROM innovagile/web:8.0
+FROM innovagile/web:latest
 LABEL author="innovAgile <hello@innovagile.com>"
 LABEL version=${PHP_VERSION}
 
@@ -9,7 +9,13 @@ RUN apt-get -y update && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN npm i -g npm && \
+RUN  EXPECTED_SIGNATURE="$(curl -q https://composer.github.io/installer.sig)" && \
+    curl -o /tmp/composer-setup.php https://getcomposer.org/installer && \
+    ACTUAL_SIGNATURE="$(php -r "echo hash_file('sha384', '/tmp/composer-setup.php');")" && \
+    if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]; then >&2 echo "ERROR: Invalid installer signature!\nExpected: $EXPECTED_SIGNATURE\nActual:   $ACTUAL_SIGNATURE"; rm /tmp/composer-setup.php; exit 1; fi && \
+    php /tmp/composer-setup.php --install-dir=/bin --filename=composer && \
+    rm /tmp/composer-setup.php && \
+    npm i -g npm && \
     npm install --global gulp-cli && \
     npm install --global --save-dev webpack webpack-cli
 RUN echo "clear_env = no" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \

@@ -20,7 +20,7 @@ If you're seeing this message in your browser it means that
 the PHP docker container is not running properly
 */
 
-echo 'This is a php-fpm ' . PHP_VERSION . ' + xdebug + npm + webpack + gulp + nginx docker container.';
+echo 'This is a php-fpm ' . PHP_VERSION . ' + xdebug + composer + npm + webpack + gulp + nginx docker container.';
 ?>
 </h3>
 <h4>

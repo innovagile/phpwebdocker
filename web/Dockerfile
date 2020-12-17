@@ -29,11 +29,7 @@ RUN apt-get -y update && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN mkdir -p /etc/php/current/fpm/pool.d/ && \
-    cat /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf | sed 's/^listen = \/.\+$/listen = \/run\/php\/php-fpm.sock/' > /etc/php/current/fpm/pool.d/www.conf && \
-    curl -o /tmp/composer-setup.php https://getcomposer.org/installer && \
-    php -r "if (hash_file('sha384', '/tmp/composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('/tmp/composer-setup.php'); } echo PHP_EOL;" && \
-    php /tmp/composer-setup.php --install-dir=/bin --filename=composer && \
-    rm /tmp/composer-setup.php
+    cat /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf | sed 's/^listen = \/.\+$/listen = \/run\/php\/php-fpm.sock/' > /etc/php/current/fpm/pool.d/www.conf
 
 RUN mkdir -p /var/www
 ADD www/public /var/www/public/
