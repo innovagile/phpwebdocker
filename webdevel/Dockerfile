@@ -5,7 +5,7 @@ LABEL version=${PHP_VERSION}
 RUN apt-get -y update && \
     curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs build-essential unzip autoconf && \
-    apt-get install -y php-xdebug && \
+    apt-get install -y php${PHP_VERSION}-xdebug && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
