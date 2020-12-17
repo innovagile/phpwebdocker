@@ -1,5 +1,5 @@
 FROM phusion/baseimage:18.04-1.0.0
-ENV PHP_VERSION=8.0
+ENV PHP_VERSION=7.4
 LABEL author="innovAgile <hello@innovagile.com>"
 LABEL version=${PHP_VERSION}
 
@@ -15,6 +15,7 @@ RUN apt-get -y update && \
         php${PHP_VERSION}-cli \
         php${PHP_VERSION}-common \
         php${PHP_VERSION}-opcache \
+        php${PHP_VERSION}-json \
         php${PHP_VERSION}-mysql \
         php${PHP_VERSION}-intl \
         php${PHP_VERSION}-mbstring \
