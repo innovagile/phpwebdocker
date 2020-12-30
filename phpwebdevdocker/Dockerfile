@@ -22,10 +22,11 @@ RUN echo "clear_env = no" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
     echo "env[DB_HOST] = \$DB_HOST" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
     echo "env[DB_USER] = \$DB_USER" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
     echo "env[DB_PASSWORD] = \$DB_PASSWORD" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
-    echo "xdebug.remote_enable=1" >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
-    echo 'xdebug.remote_connect_back=0' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
-    echo 'xdebug.remote_port=9000' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
-    echo 'xdebug.remote_host=host.docker.internal' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
-    echo "xdebug.remote_autostart=0" >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini
+
+    echo "xdebug.mode=debug" >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
+    echo 'xdebug.discover_client_host=true' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
+    echo 'xdebug.client_port=9003' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
+    echo 'xdebug.client_host=host.docker.internal' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
+    echo "xdebug.start_with_request=trigger" >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini
 
 ADD www/public /var/www/public/
