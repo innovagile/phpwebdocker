@@ -24,7 +24,7 @@ RUN echo "clear_env = no" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
     echo "env[DB_PASSWORD] = \$DB_PASSWORD" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
 
     echo "xdebug.mode=debug" >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
-    echo 'xdebug.discover_client_host=true' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
+    echo 'xdebug.discover_client_host=false' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
     echo 'xdebug.client_port=9003' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
     echo 'xdebug.client_host=host.docker.internal' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
     echo "xdebug.start_with_request=trigger" >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini
