@@ -20,6 +20,8 @@ RUN  EXPECTED_SIGNATURE="$(curl -q https://composer.github.io/installer.sig)" &&
     npm install --global gulp-cli && \
     npm install --global --save-dev webpack webpack-cli
 
+ADD conf/nginx /etc/nginx/
+
 RUN echo "clear_env = no" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
     echo "env[DB_HOST] = \$DB_HOST" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
     echo "env[DB_USER] = \$DB_USER" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
