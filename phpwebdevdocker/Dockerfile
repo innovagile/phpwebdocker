@@ -1,4 +1,4 @@
-FROM innovagile/phpwebdocker:latest
+FROM innovagile/phpwebdocker:5.6
 LABEL author="innovAgile <hello@innovagile.com>"
 LABEL version=${PHP_VERSION}
 
@@ -26,6 +26,9 @@ RUN echo "clear_env = no" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
     echo "env[DB_HOST] = \$DB_HOST" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
     echo "env[DB_USER] = \$DB_USER" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
     echo "env[DB_PASSWORD] = \$DB_PASSWORD" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
+
+    echo 'display_errors=true' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
+    echo 'expose_php=true' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
 
     echo "xdebug.mode=debug" >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
     echo 'xdebug.discover_client_host=false' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
