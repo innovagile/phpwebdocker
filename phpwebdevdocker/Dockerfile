@@ -1,4 +1,4 @@
-FROM innovagile/phpwebdocker:latest
+FROM innovagile/phpwebdocker
 LABEL author="innovAgile <hello@innovagile.com>"
 LABEL version=${PHP_VERSION}
 
