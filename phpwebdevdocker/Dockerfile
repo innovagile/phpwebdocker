@@ -10,7 +10,7 @@ RUN apt-get -y update && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN  EXPECTED_SIGNATURE="$(curl -q https://composer.github.io/installer.sig)" && \
+RUN EXPECTED_SIGNATURE="$(curl -q https://composer.github.io/installer.sig)" && \
     curl -o /tmp/composer-setup.php https://getcomposer.org/installer && \
     ACTUAL_SIGNATURE="$(php -r "echo hash_file('sha384', '/tmp/composer-setup.php');")" && \
     if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]; then >&2 echo "ERROR: Invalid installer signature!\nExpected: $EXPECTED_SIGNATURE\nActual:   $ACTUAL_SIGNATURE"; rm /tmp/composer-setup.php; exit 1; fi && \
@@ -22,10 +22,12 @@ RUN  EXPECTED_SIGNATURE="$(curl -q https://composer.github.io/installer.sig)" &&
 
 ADD conf/nginx /etc/nginx/
 
-RUN echo "clear_env = no" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
-    echo "env[DB_HOST] = \$DB_HOST" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
-    echo "env[DB_USER] = \$DB_USER" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
-    echo "env[DB_PASSWORD] = \$DB_PASSWORD" >> /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf && \
+RUN cat /etc/php/current/fpm/pool.d/www.conf | sed 's/^;pm.status_path = \/.\+$/pm.status_path = \/status_fpm/' > /tmp/www.conf && mv /tmp/www.conf /etc/php/current/fpm/pool.d/www.conf
+
+RUN echo "clear_env = no" >> /etc/php/current/fpm/pool.d/www.conf && \
+    echo "env[DB_HOST] = \$DB_HOST" >> /etc/php/current/fpm/pool.d/www.conf && \
+    echo "env[DB_USER] = \$DB_USER" >> /etc/php/current/fpm/pool.d/www.conf && \
+    echo "env[DB_PASSWORD] = \$DB_PASSWORD" >> /etc/php/current/fpm/pool.d/www.conf && \
 
     echo 'display_errors=true' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \
     echo 'expose_php=true' >> /etc/php/${PHP_VERSION}/mods-available/xdebug.ini && \

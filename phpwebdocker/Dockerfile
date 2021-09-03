@@ -28,8 +28,9 @@ RUN apt-get -y update && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN mkdir -p /etc/php/current/fpm/pool.d/ && \
-    cat /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf | sed 's/^listen = \/.\+$/listen = \/run\/php\/php-fpm.sock/' > /etc/php/current/fpm/pool.d/www.conf
+
+RUN mkdir -p /etc/php/current/fpm/pool.d/
+COPY conf/php-fpm/pool-www.conf /etc/php/current/fpm/pool.d/www.conf
 
 RUN mkdir -p /var/www
 ADD www/public /var/www/public/
