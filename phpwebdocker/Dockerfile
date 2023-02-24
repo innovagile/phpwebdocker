@@ -52,6 +52,6 @@ ADD conf/nginx /etc/nginx/
 
 COPY conf/php-fpm/php-fpm.conf /etc/php/${PHP_VERSION}/fpm/php-fpm.conf
 
-EXPOSE 80
+EXPOSE 80 2443
 
 CMD ["/sbin/my_init"]
