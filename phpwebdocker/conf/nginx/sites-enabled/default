@@ -5,8 +5,10 @@ upstream php_upstream {
 uninitialized_variable_warn off;
 
 server {
-    listen 80 2443 default_server;
-    listen [::]:80 2443 default_server;
+    listen 80 default_server;
+    listen 2443;
+    listen [::]:80 default_server;
+    listen [::]:2443;
     server_name _;
 
 ; phpwebdevdocker_placeholder
