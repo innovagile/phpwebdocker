@@ -40,7 +40,7 @@ RUN echo "clear_env = no" >> /etc/php/current/fpm/pool.d/www.conf && \
 
 RUN openssl req -batch -x509 -nodes -days 5000 -newkey rsa:2048 -keyout /etc/nginx/phpwebdev.key -out /etc/nginx/phpwebdev.crt
 RUN cat /etc/nginx/sites-enabled/default \
-        | sed 's/; phpwebdevdocker_placeholder/listen 80 default_server;\nlisten 443 ssl;\nssl_certificate phpwebdev.crt;\nssl_certificate_key phpwebdev.key;/g' \
+        | sed 's/; phpwebdevdocker_placeholder/listen 443 ssl;\nssl_certificate phpwebdev.crt;\nssl_certificate_key phpwebdev.key;/g' \
         > /tmp/nginx-default && \
         mv -f /tmp/nginx-default /etc/nginx/sites-enabled/default
 
