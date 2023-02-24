@@ -11,7 +11,7 @@ server {
     listen [::]:2443;
     server_name _;
 
-; phpwebdevdocker_placeholder
+# phpwebdevdocker_placeholder
 
     error_log /var/log/nginx/web-error.log;
     access_log /var/log/nginx/web-access.log;
