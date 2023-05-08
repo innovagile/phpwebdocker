@@ -1,0 +1,49 @@
+upstream php_upstream {
+     server unix:/run/php/php-fpm.sock;
+}
+
+uninitialized_variable_warn off;
+
+server {
+    listen 80 default_server;
+    listen 2443;
+    listen [::]:80 default_server;
+    listen [::]:2443;
+    server_name _;
+
+# phpwebdevdocker_placeholder
+
+    error_log /var/log/nginx/web-error.log;
+    access_log /var/log/nginx/web-access.log;
+
+    keepalive_requests 100;
+    keepalive_timeout 10s;
+
+    root /var/www/public;
+
+    if ($server_port = 443) { set $emulate_https on; }
+    if ($server_port = 2443) { set $emulate_https on; }
+    if ($server_port = 80) { set $emulate_https off; }
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+
+        include fastcgi_params;
+        fastcgi_param HTTPS $emulate_https;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_pass php_upstream;
+    }
+
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        expires max;
+        log_not_found off;
+        try_files $uri =404;
+        etag on;
+    }
+}
