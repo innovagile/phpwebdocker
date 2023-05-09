@@ -1,5 +1,5 @@
 FROM phusion/baseimage:jammy-1.0.0
-ENV PHP_VERSION=8.1
+ENV PHP_VERSION=8.2
 LABEL author="innovAgile <hello@innovagile.com>"
 LABEL version=${PHP_VERSION}
 

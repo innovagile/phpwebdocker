@@ -10,13 +10,14 @@ fi
 
 echo "Version $DOCKER_VERSION"
 
-cd phpwebdocker && \
-docker build -t innovagile/phpwebdocker:$DOCKER_VERSION . && \
-docker push innovagile/phpwebdocker:$DOCKER_VERSION && \
+for DOCKER_IMAGE in "phpwebdocker" "phpwebdevdocker" "phpwebdocker-alpine" "phpwebdevdocker-alpine"
+do
+  cd $DOCKER_IMAGE && \
+  docker build -t innovagile/$DOCKER_IMAGE:$DOCKER_VERSION . && \
+  echo "=== Build of $DOCKER_IMAGE:$DOCKER_VERSION completed"
+  docker push innovagile/$DOCKER_IMAGE:$DOCKER_VERSION && \
+  echo "=== Push of $DOCKER_IMAGE:$DOCKER_VERSION completed"
+  cd $CURRENT_DIR
+done
 
-cd ../phpwebdevdocker && \
-docker build -t innovagile/phpwebdevdocker:$DOCKER_VERSION . && \
-docker push innovagile/phpwebdevdocker:$DOCKER_VERSION && \
-echo "Build completed"
-
-cd $CURRENT_DIR
+echo "=== Build completed ==="
