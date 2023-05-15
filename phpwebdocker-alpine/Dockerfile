@@ -18,12 +18,14 @@ RUN apk add --no-cache --repository=https://dl-cdn.alpinelinux.org/alpine/edge/c
     libjpeg \
     libjpeg-turbo \
     libpcre2-16 \
-    php${PHP_VERSION_SHORT}-apcu \
     php${PHP_VERSION_SHORT}-gd \
     php${PHP_VERSION_SHORT}-phar \
     php${PHP_VERSION_SHORT}-json \
     php${PHP_VERSION_SHORT}-intl \
+    php${PHP_VERSION_SHORT}-mysqli \
     php${PHP_VERSION_SHORT}-pdo_mysql
+
+RUN cp /usr/local/lib/php/extensions/no-debug-non-zts-20220829/sodium.so /usr/lib/php82/modules/
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"; \
     php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"; \

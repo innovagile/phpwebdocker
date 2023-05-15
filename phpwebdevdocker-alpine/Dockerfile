@@ -20,6 +20,7 @@ RUN echo "clear_env = no" >> /usr/local/etc/php/current/fpm/pool.d/www.conf && \
     echo "env[DB_USER] = \$DB_USER" >> /usr/local/etc/php/current/fpm/pool.d/www.conf && \
     echo "env[DB_PASSWORD] = \$DB_PASSWORD" >> /usr/local/etc/php/current/fpm/pool.d/www.conf && \
 
+    echo 'zend_extension=xdebug.so' >> /usr/local/etc/php/conf.d/xdebug.ini && \
     echo 'display_errors=true' >> /usr/local/etc/php/conf.d/xdebug.ini && \
     echo 'expose_php=true' >> /usr/local/etc/php/conf.d/xdebug.ini && \
     echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini && \
